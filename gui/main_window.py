@@ -164,6 +164,10 @@ class MainWindow(QMainWindow):
         # Save plot image for PDF/DOCX
         plot_path = "outputs/mohr_plot.png"
         fig = create_mohr_plot(prepare_mohr_circle_data(self.specimens), self.envelope)
+        fig.tight_layout()
+        for ax in fig.axes:
+            ax.set_aspect("equal", adjustable="box")
+
         fig.savefig(plot_path, dpi=300)
 
         # Determine format

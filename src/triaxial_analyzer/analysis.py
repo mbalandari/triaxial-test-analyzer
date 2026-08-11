@@ -2,6 +2,7 @@
 Core analysis functions for triaxial test data.
 """
 
+import os
 import numpy as np
 from .models import Specimen, AnalysisResult
 
@@ -55,7 +56,7 @@ def prepare_mohr_circle_data(specimens):
 
         mohr_data.append(
             {
-                "name": sp.name,
+                "name": os.path.basename(sp.name),
                 "center": center,
                 "radius": radius,
                 "sigma1": res.sigma1,

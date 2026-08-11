@@ -19,17 +19,27 @@ class PlotView(QWidget):
     def update_plot(self, fig):
         self.fig.clear()
 
-        # Copy axes from provided figure
         src_ax = fig.axes[0]
         dst_ax = self.fig.add_subplot(111)
 
+        # Copy lines
         for line in src_ax.lines:
             dst_ax.plot(line.get_xdata(), line.get_ydata(), label=line.get_label())
 
+        # Copy labels
         dst_ax.set_xlabel(src_ax.get_xlabel())
         dst_ax.set_ylabel(src_ax.get_ylabel())
         dst_ax.set_title(src_ax.get_title())
+
+        # Copy grid
         dst_ax.grid(True)
-        dst_ax.legend()
+
+        # ⭐ CRITICAL FIX: Make circles round in GUI
+        dst_ax.set_aspect("equal", adjustable="box")
+
+        # Copy legend
+        dst_ax.legend(loc="upper left", bbox_to_anchor=(1.05, 1))
+
+        self.fig.tight_layout()
 
         self.canvas.draw()
