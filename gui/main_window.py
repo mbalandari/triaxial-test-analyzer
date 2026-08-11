@@ -149,6 +149,41 @@ class MainWindow(QMainWindow):
         return "".join(lines)
 
     def export_report(self):
-        QMessageBox.information(
-            self, "Export", "Report export will be implemented in Step 8."
+        if not self.results or not self.envelope:
+            QMessageBox.warning(self, "No Analysis", "Run analysis before exporting.")
+            return
+
+        # Ask user for output file
+        path, _ = QFileDialog.getSaveFileName(
+            self, "Save Report", "", "Reports (*.txt *.pdf *.docx)"
         )
+
+        if not path:
+            return
+
+        # Save plot image for PDF/DOCX
+        plot_path = "outputs/mohr_plot.png"
+        fig = create_mohr_plot(prepare_mohr_circle_data(self.specimens), self.envelope)
+        fig.savefig(plot_path, dpi=300)
+
+        # Determine format
+        if path.endswith(".txt"):
+            from src.triaxial_analyzer.reports.report_txt import generate_txt_report
+
+            generate_txt_report(self.results, self.envelope, path)
+
+        elif path.endswith(".pdf"):
+            from src.triaxial_analyzer.reports.report_pdf import generate_pdf_report
+
+            generate_pdf_report(self.results, self.envelope, plot_path, path)
+
+        elif path.endswith(".docx"):
+            from src.triaxial_analyzer.reports.report_docx import generate_docx_report
+
+            generate_docx_report(self.results, self.envelope, plot_path, path)
+
+        else:
+            QMessageBox.warning(self, "Invalid Format", "Choose .txt, .pdf, or .docx.")
+            return
+
+        QMessageBox.information(self, "Export Complete", f"Report saved:\n{path}")

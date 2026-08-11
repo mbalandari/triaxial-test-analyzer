@@ -42,6 +42,7 @@ def generate_pdf_report(results, envelope, plot_path, output_path):
     c.drawString(50, y, f"Friction Angle: {envelope['phi_deg']:.2f}°")
     y -= 40
 
+    # Insert plot
     c.drawImage(plot_path, 50, y - 300, width=400, height=300)
 
     c.save()

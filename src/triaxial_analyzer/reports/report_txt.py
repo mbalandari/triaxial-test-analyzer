@@ -29,3 +29,4 @@ def generate_txt_report(results, envelope, output_path):
         f.write("Mohr–Coulomb Envelope:\n")
         f.write(f"  Cohesion: {envelope['cohesion']:.3f}\n")
         f.write(f"  Friction Angle: {envelope['phi_deg']:.2f}°\n")
+        f.write("\n")
