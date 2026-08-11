@@ -35,7 +35,13 @@ class Specimen:
         Returns:
             Specimen instance.
         """
-        raise NotImplementedError
+        strain = df["axial_strain"].to_numpy(dtype=float)
+        stress = df["axial_stress"].to_numpy(dtype=float)
+        conf = float(df["confining_pressure"].iloc[0])
+
+        return Specimen(
+            name=source, strain=strain, stress=stress, confining_pressure=conf
+        )
 
 
 @dataclass

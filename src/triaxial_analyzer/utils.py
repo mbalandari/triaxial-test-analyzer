@@ -13,4 +13,5 @@ def normalize_columns(df):
     Returns:
         Modified DataFrame.
     """
-    raise NotImplementedError
+    df.columns = [c.strip().lower() for c in df.columns]
+    return df
