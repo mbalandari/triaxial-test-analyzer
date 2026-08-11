@@ -8,7 +8,8 @@ class SpecimenView(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        self.label = QLabel("Specimen Information\n(Will update after analysis)")
+        self.label = QLabel("Specimen Information")
+        self.label.setStyleSheet("font-size: 14px;")
         layout.addWidget(self.label)
 
     def update_info(self, text):
