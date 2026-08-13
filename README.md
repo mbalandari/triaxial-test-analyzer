@@ -2,6 +2,8 @@
 
 A professional desktop application for analyzing triaxial rock mechanics test data.
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 ---
 
 ## 📚 Documentation
